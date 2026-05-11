@@ -1,0 +1,104 @@
+### Variáveis de ambiente
+@baseUrl = http://localhost:8080/produtos
+
+### Listar todos os produtos
+# Retorna a lista atual de produtos
+GET {{baseUrl}}
+Accept: application/json
+
+### Criar um novo produto (Cadeira)
+# Adiciona um produto e retorna o objeto com o ID gerado (1)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+    "name": "Cadeira Gamer",
+    "price": 1250.00
+}
+
+### Criar outro produto (Mouse)
+# Adiciona mais um produto para testar a lista (ID 2)
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+    "name": "Mouse Sem Fio",
+    "price": 150.50
+}
+
+### Atualizar um produto existente
+# Altera o preço ou nome do produto com ID 1
+PUT {{baseUrl}}/1
+Content-Type: application/json
+
+{
+    "name": "Cadeira Gamer Premium",
+    "price": 1400.00
+}
+
+### Tentar atualizar um produto que não existe
+# Deve retornar 404 Not Found conforme definido no Controller
+PUT {{baseUrl}}/99
+Content-Type: application/json
+
+{
+    "name": "Inexistente",
+    "price": 0.0
+}
+
+### Remover um produto
+# Remove o produto de ID 2 da lista
+DELETE {{baseUrl}}/2
+
+### Validar remoção (Listar novamente)
+# Verifique se o ID 2 sumiu e o ID 1 permanece atualizado
+GET {{baseUrl}}
+
+### Client API base URL
+@baseClientUrl = http://localhost:8080/clientes
+
+### List all clients
+# Returns the current list of clients
+GET {{baseClientUrl}}
+Accept: application/json
+
+### Create a new client
+# Adds a client and returns the object with generated ID
+POST {{baseClientUrl}}
+Content-Type: application/json
+
+{
+    "nome": "Ana Souza",
+    "email": "ana.souza@example.com",
+    "idade": 28
+}
+
+### Update an existing client
+# Updates the client with ID 1
+PUT {{baseClientUrl}}/1
+Content-Type: application/json
+
+{
+    "nome": "Ana Souza Silva",
+    "email": "ana.silva@example.com",
+    "idade": 29
+}
+
+### Update a non-existing client
+# Should return 404 Not Found when the ID is missing
+PUT {{baseClientUrl}}/99
+Content-Type: application/json
+
+{
+    "nome": "Unknown",
+    "email": "unknown@example.com",
+    "idade": 0
+}
+
+### Delete a client
+# Removes the client with ID 1
+DELETE {{baseClientUrl}}/1
+
+### Verify deletion
+# The deleted client must no longer be returned
+GET {{baseClientUrl}}
